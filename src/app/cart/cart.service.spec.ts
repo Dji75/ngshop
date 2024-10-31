@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CartService } from './cart.service';
+import { CartService } from '../cart/cart.service';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('CartService', () => {

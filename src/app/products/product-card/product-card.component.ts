@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, input, Input } from '@angular/core';
 import { Product } from '../product.model';
 import { TruncatePipe } from '../../truncate.pipe';
 import { CommonModule, DecimalPipe, getCurrencySymbol } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { CartService } from '../cart.service';
+import { CartService } from '../../cart/cart.service';
 
 @Component({
   selector: 'ngshop-product-card',
@@ -13,15 +13,18 @@ import { CartService } from '../cart.service';
   styleUrl: './product-card.component.css'
 })
 export class ProductCardComponent {
-  @Input() product!: Product;
+  constructor() { }
+  // @Input() product!: Product;
 
-  constructor(private cartService: CartService) { }
+  product = input.required<Product>();
+  private cartService = inject(CartService);
+
   currencySymbol(): string {
     return getCurrencySymbol('EUR','narrow');
   }
 
   buttonCartClicked() {
-    this.cartService.addToCart(this.product);
+    this.cartService.addToCart(this.product());
   }
 
   getRatingClasses(rating: number, index: number) {

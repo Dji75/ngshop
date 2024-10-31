@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Product } from '../product.model';
 import { ProductService } from '../product.service';
 import { CommonModule } from '@angular/common';
@@ -14,7 +14,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
   styleUrl: './product-list.component.css'
 })
 export class ProductListComponent {
-  constructor(private productService: ProductService, private route: ActivatedRoute) { }
+  private productService = inject(ProductService);
+  private route = inject(ActivatedRoute);
 
   public products$: Observable<Product[]> = this.productService.getProducts();
   params = this.route.params;

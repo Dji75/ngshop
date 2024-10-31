@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserCredentials } from '../user.model';
@@ -15,8 +15,9 @@ import { UserService } from '../user.service';
 export class LoginComponent {
   credentials: UserCredentials = {email: '', password: ''}
   hasError = false;
-  
-  constructor(private router: Router, private userService: UserService) {
+  private router = inject(Router);
+  private userService = inject(UserService);
+  constructor() {
     this.userService.getUser().subscribe({
       next: (user) => {
         if(user) {

@@ -5,9 +5,11 @@ import products from '../products.json';
 import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { By } from '@angular/platform-browser';
+import { ComponentRef } from '@angular/core';
 
 describe('ProductCardComponent', () => {
   let component: ProductCardComponent;
+  let componentRef: ComponentRef<ProductCardComponent>
   let fixture: ComponentFixture<ProductCardComponent>;
   
   beforeEach(async () => {
@@ -21,7 +23,8 @@ describe('ProductCardComponent', () => {
     
     fixture = TestBed.createComponent(ProductCardComponent);
     component = fixture.componentInstance;
-    component.product = products[0];
+    componentRef = fixture.componentRef;
+    componentRef.setInput("product", products[0]);
     fixture.detectChanges();
   });
 
@@ -35,7 +38,8 @@ describe('ProductCardComponent', () => {
     });
 
     it('should have rating for third product', () => {
-      component.product = products[2];
+      console.log(products[2]);
+      componentRef.setInput("product", products[2]);
       fixture.detectChanges();
 
       const element = fixture.debugElement.query(By.css('.styles_rating'));
